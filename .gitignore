@@ -1,0 +1,9 @@
+.idea/
+out/
+vs263xianzhaopinw/node_modules/
+node_modules/
+.DS_Store
+dist/
+*.log
+*.tmp
+*.local

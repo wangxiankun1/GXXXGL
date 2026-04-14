@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="vs263xianzhaopins"
+  id="myeclipse.1597748634775"
+  context-root="/vs263xianzhaopins"
+  j2ee-spec="6.0"
+  archive="vs263xianzhaopins.war">
+  <attributes>
+    <attribute name="webrootdir" value="WebRoot" />
+  </attributes>
+</project-module>
+
