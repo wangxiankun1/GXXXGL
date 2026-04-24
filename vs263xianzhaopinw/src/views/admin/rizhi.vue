@@ -6,7 +6,7 @@
         <el-form-item>
           <el-button type="danger" size="small" @click="deleteRizhis" :disabled="selectedIds.length === 0">批量删除</el-button>
           <!-- 可选：添加导出按钮，修复后可用 -->
-          <el-button type="primary" size="mini" @click="exportTable">导出Excel</el-button>
+          <el-button type="primary" size="mini" @click="exportTable" :disabled="selectedIds.length === 0">导出Excel</el-button>
         </el-form-item>
       </el-form>
     </el-col>
@@ -81,6 +81,7 @@ export default {
       },
       jcpeizhi:{},
       selectedIds: [],
+      selectedRows: [],
       // 修复3：添加缺失的响应式变量
       delIds: '',
       isPage: false,
@@ -139,18 +140,39 @@ export default {
     },
     // 修复5：核心！修复导出方法的DOM获取错误（原代码直接用myTable导致崩溃）
     exportTable() {
-      const tableDom = document.getElementById('myTable');
-      if (!tableDom) return this.$message.warning('表格不存在');
+      // 1. 拦截未勾选状态
+      if (!this.selectedRows || this.selectedRows.length === 0) {
+        return this.$message.warning('请至少勾选一条需要导出的数据');
+      }
 
-      const filename = "登录日志.xlsx";
-      const wb = XLSX.utils.table_to_book(tableDom);
+      // 2. 构造要导出的特定数据格式（过滤掉不需要的字段）
+      const exportData = this.selectedRows.map((item, index) => {
+        return {
+          '编号': index + 1,
+          '用户名': item.rizhiName,
+          'IP': item.dengluIp,
+          // 复用你写好的 formatDate 方法处理时间格式
+          '时间': this.formatDate(item, { property: 'date' }),
+          '操作类型': item.rizhiType,
+          '操作结果': item.rizhiResult,
+          '备注': item.rizhiRemark
+        };
+      });
+
+      // 3. 将 JSON 数据转换为 Excel Sheet
+      const filename = "登录日志_部分导出.xlsx";
+      const ws = XLSX.utils.json_to_sheet(exportData);
+      const wb = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
       const wbout = XLSX.write(wb, { bookType: "xlsx", bookSST: true, type: "array" });
 
+      // 4. 下载文件
       FileSaver.saveAs(new Blob([wbout], { type: "application/octet-stream" }), filename);
       this.$message.success('导出成功');
     },
     // 多选事件
     handleSelectionChange(selection) {
+      this.selectedRows = selection;
       this.selectedIds = selection.map(item => item.rizhiId);
       this.delIds = this.selectedIds.join(','); // 简化字符串处理
     },

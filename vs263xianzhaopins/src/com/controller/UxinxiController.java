@@ -36,7 +36,8 @@ public class UxinxiController {
 	private UxtypeService uxtypeService;
 	@Autowired
 	private UserService userService;
-
+	@Autowired
+	private RizhiService rizhiService;
 	/***上传导入开始***/
 	private InputStream excelFile;
 
@@ -244,12 +245,16 @@ public class UxinxiController {
 			//id不为空，修改（更改状态等）；Id为空就是增加；然后返回结果
 			if (StringUtil.isNotEmpty(uxinxiId)) {
 				uxinxiService.modifyUxinxi(uxinxi);
+				String operator = uxinxi.getUserName() != null ? uxinxi.getUserName() : "学生用户";
+				rizhiService.addLog(request, operator, "修改", "修改了就业信息: " + uxinxi.getUxinxiName(), "成功");
 				return Response.success();
 			} else {
 				Date date = new Date();
 				uxinxi.setUxinxiDate(date);
 				uxinxi.setUxinxiType(0);
 				uxinxiService.save(uxinxi);
+				String operator = uxinxi.getUserName() != null ? uxinxi.getUserName() : "学生用户";
+				rizhiService.addLog(request, operator, "提交", "提交了就业信息: " + uxinxi.getUxinxiName(), "成功");
 				return Response.success();
 			}
 		} catch (Exception e) {

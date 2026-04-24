@@ -39,7 +39,8 @@ public class ShujuController {
 	private YonghuService yonghuService;
 	@Autowired
 	private BuzhiService buzhiService;
-
+	@Autowired
+	private RizhiService rizhiService;
 	/***上传导入开始***/
 	private InputStream excelFile;
 
@@ -425,6 +426,8 @@ public class ShujuController {
 			//id不为空，修改（更改状态等）；Id为空就是增加；然后返回结果
 			if (StringUtil.isNotEmpty(shujuId)) {
 				shujuService.modifyShuju(shuju);
+				String operator = shuju.getYonghuName() != null ? shuju.getYonghuName() : "企业用户";
+				rizhiService.addLog(request, operator, "修改", "修改了职位信息: " + shuju.getShujuName(), "成功");
 				return Response.success();
 			} else {
 				Yonghu yonghu = yonghuService.getYonghu(shuju.getYonghuId());
@@ -435,8 +438,12 @@ public class ShujuController {
 					shuju.setShujuZong2(0);
 					shuju.setShujuType(0);
 					shujuService.save(shuju);
+					String operator = shuju.getYonghuName() != null ? shuju.getYonghuName() : "企业用户";
+					rizhiService.addLog(request, operator, "发布", "发布了职位: " + shuju.getShujuName(), "成功");
 					return Response.success();
 				}else{
+					String operator = shuju.getYonghuName() != null ? shuju.getYonghuName() : "企业用户";
+					rizhiService.addLog(request, operator, "发布", "尝试发布职位失败: " + shuju.getShujuName(), "失败(企业审核未通过)");
 					return Response.error(204,"审核未通过，请联系管理员");
 				}
 			}

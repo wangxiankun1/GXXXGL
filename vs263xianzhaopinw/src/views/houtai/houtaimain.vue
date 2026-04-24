@@ -32,7 +32,7 @@
               修改密码
             </div>
             <div class="menu-item" :class="{ active: isPathActive('/rizhi') }" @click="goTo('/rizhi')">
-              登录日志
+              操作记录
             </div>
           </div>
           <div class="menu-sub" v-show="openGroups.includes('base')" v-if="role=='admin1'">
