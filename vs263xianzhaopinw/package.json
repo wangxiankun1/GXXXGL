@@ -1,0 +1,36 @@
+{
+  "name": "vs263xianzhaopinw",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "serve": "vue-cli-service serve --port 8081",
+    "build": "vue-cli-service build"
+  },
+  "dependencies": {
+    "axios": "^0.21.1",
+    "core-js": "^3.6.5",
+    "echarts": "^5.2.2",
+    "element-plus": "1.0.2-beta.71",
+    "file-saver": "^2.0.5",
+    "jquery": "^3.6.1",
+    "swiper": "^3.4.2",
+    "vue": "3.2.31",
+    "vue-router": "4.0.12",
+    "vue-ueditor-wrap": "^3.0.8",
+    "vuex": "4.0.2",
+    "wangeditor": "^4.7.7",
+    "xlsx": "^0.17.0"
+  },
+  "devDependencies": {
+    "@vue/cli-plugin-babel": "~4.5.0",
+    "@vue/cli-plugin-router": "~4.5.0",
+    "@vue/cli-plugin-vuex": "~4.5.0",
+    "@vue/cli-service": "~4.5.0",
+    "@vue/compiler-sfc": "^3.0.0"
+  },
+  "browserslist": [
+    "> 1%",
+    "last 2 versions",
+    "not dead"
+  ]
+}

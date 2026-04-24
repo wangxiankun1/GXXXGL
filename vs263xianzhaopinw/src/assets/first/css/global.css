@@ -1,0 +1,38 @@
+.el-submenu__title{
+    background-color: #393D49!important;
+    color: #ffffff;
+}
+.el-menu{
+    background-color: #393D49!important;
+    color: #ffffff;
+}
+.el-menu-item-group{
+    background-color: rgb(97, 96, 96);
+}
+.el-menu-item{
+    color: #ffffff;
+}
+.el-menu-item.is-active{
+    color: #b9b9b9;
+}
+.el-menu-item:hover {
+    background-color: #009688;
+}
+
+.el-table th{
+    background-color: #eef1f6!important;
+    font-weight: bold;
+}
+
+.el-table--enable-row-hover .el-table__body tr:hover>td {
+    background-color: #ffffff!important;
+}
+.el-table--striped .el-table__body tr.el-table__row--striped td {
+    background: #ffffff;
+}
+
+.query-form {
+    margin-top: 20px;
+    padding-top: 25px;
+    background-color: #f2f2f2;
+}
