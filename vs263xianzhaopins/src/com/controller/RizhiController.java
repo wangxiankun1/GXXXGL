@@ -80,28 +80,21 @@ public class RizhiController {
 	//删除数据
 	@ResponseBody
 	@RequestMapping("/deleteRizhi")
-	public Response deleteRizhi(@RequestBody Object req,HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
-		Map<String,String> newMap = (Map<String, String>) req;
-		Map<String,String> map = new HashMap<String, String>();
-		for(Map.Entry entry : newMap.entrySet()) {
-	        String key = String.valueOf(entry.getKey());
-	        String value = "";
-	        if(entry.getValue()!=null){
-	        	value = String.valueOf(entry.getValue());
-	        }
-	        map.put(key, value);
-	    }
+	public Response deleteRizhi(@RequestBody Object req, HttpServletRequest request) {
+		Map<String,String> map = (Map<String, String>) req;
+		String delIds = map.get("delIds");
 		try {
-			String delIds =  map.get("delIds");
 			String str[] = delIds.split(",");
 			for (int i = 0; i < str.length; i++) {
 				rizhiService.deleteRizhi(Integer.parseInt(str[i]));
 			}
+			// 成功审计
+			rizhiService.addLog(request, "管理员", "删除", "删除了日志ID: " + delIds, "成功");
 			return Response.success();
 		} catch (Exception e) {
-			//e.printStackTrace();
-			return Response.error(204,"服务器错误");
+			// 失败审计
+			rizhiService.addLog(request, "管理员", "删除", "尝试删除日志失败: " + delIds, "失败");
+			return Response.error(204, "服务器错误");
 		}
 	}
 }

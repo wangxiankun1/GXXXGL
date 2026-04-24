@@ -1,5 +1,6 @@
 package com.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.dao.*;
 import com.model.*;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Service
 public class RizhiService {
@@ -40,4 +43,14 @@ public class RizhiService {
 
 	}
 
+	public void addLog(HttpServletRequest request, String userName, String type, String remark, String result) {
+		Rizhi rizhi = new Rizhi();
+		rizhi.setRizhiName(userName);
+		rizhi.setDengluIp(request.getRemoteAddr()); // 获取客户端IP
+		rizhi.setDate(new Date());
+		rizhi.setRizhiType(type);
+		rizhi.setRizhiRemark(remark);
+		rizhi.setRizhiResult(result);
+		rizhiDao.add(rizhi);
+	}
 }
