@@ -217,7 +217,26 @@ defineExpose({ askXunfei, newSession, clearHistory })
 }
 
 /* 单条消息 */
-.msg { display: flex; gap: 10px; align-items: flex-start; max-width: 100%; }
+.msg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  max-width: 85%; /* 限制最大宽度，让左右区分更明显 */
+}
+
+/* AI助手消息：靠左排列 */
+.msg.assistant {
+  align-self: flex-start; /* 整体靠左 */
+  flex-direction: row;    /* 头像在左，气泡在右 */
+}
+
+/* 用户消息：靠右排列 */
+.msg.user {
+  align-self: flex-end;   /* 整体靠父容器右侧 */
+  flex-direction: row-reverse; /* 头像在右，气泡在左 */
+}
+
+/* 头像样式保持不变 */
 .avatar {
   width: 36px; height: 36px; border-radius: 50%;
   flex: 0 0 36px; display: grid; place-items: center;
@@ -226,20 +245,30 @@ defineExpose({ askXunfei, newSession, clearHistory })
 .avatar.user { background: #155e75; }
 .avatar.assistant { background: #334155; }
 
-/* 气泡与内容：防止超出、自动换行 */
+/* 气泡与内容基础样式 */
 .bubble {
   background: #0f172a;
   border: 1px solid #1f2a44;
   color: #e2e8f0;
   padding: 12px 14px;
-  border-radius: 12px;
   width: fit-content;
-  max-width: calc(100% - 46px);
+  max-width: 100%;
   overflow: hidden;
   word-break: break-word;
   overflow-wrap: anywhere;
 }
-.msg.user .bubble { background: #0b2533; border-color: #184b63; }
+
+/* 针对AI的气泡特定圆角（左上角变直角，更像聊天软件） */
+.msg.assistant .bubble {
+  border-radius: 0 12px 12px 12px;
+}
+
+/* 针对用户的气泡特定颜色和圆角（右上角变直角） */
+.msg.user .bubble {
+  background: #0b2533;
+  border-color: #184b63;
+  border-radius: 12px 0 12px 12px;
+}
 
 .content {
   margin: 0;
