@@ -76,7 +76,6 @@ public class LoginController {
 		String password = map.get("password");
 		String loginType = map.get("loginType");
 
-		// 此处已移除原有的 Rizhi 对象创建及 rizhiService.save(rizhi) 逻辑
 
 		if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
 			return Response.error(201,"用户名或密码错误");

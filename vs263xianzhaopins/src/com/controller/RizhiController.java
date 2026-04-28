@@ -99,11 +99,11 @@ public class RizhiController {
 			}
 
 			// 3. 记录审计日志
-			rizhiService.addLog(request, "管理员", "删除", "删除了日志ID: " + delIds, "成功");
+			rizhiService.addLog(request, "", "删除", "删除了日志ID: " + delIds, "成功");
 			return Response.success();
 		} catch (Exception e) {
 			e.printStackTrace(); // 打印错误堆栈到控制台，方便排查具体转换错误
-			rizhiService.addLog(request, "管理员", "删除", "尝试删除日志失败: " + delIds, "失败");
+			rizhiService.addLog(request, "", "删除", "尝试删除日志失败: " + delIds, "失败");
 			return Response.error(204, "服务器处理删除请求异常");
 		}
 	}

@@ -4,8 +4,8 @@
     <el-col :span="24" class="toolbar" style="padding-bottom: 0px; margin-left: 10px" >
       <el-form :inline="true" :model="filters">
         <el-form-item>
+          <el-input v-model="filters.rizhiName" placeholder="请输入用户账号" size="small"></el-input>
           <el-button type="danger" size="small" @click="deleteRizhis" :disabled="selectedIds.length === 0">批量删除</el-button>
-          <!-- 可选：添加导出按钮，修复后可用 -->
           <el-button type="primary" size="mini" @click="exportTable" :disabled="selectedIds.length === 0">导出Excel</el-button>
         </el-form-item>
       </el-form>
@@ -27,7 +27,7 @@
       <el-table-column type="selection" width="40" />
       <el-table-column sortable type="index" align="center" width="50" label="编号" />
       <el-table-column sortable prop="rizhiId" align="center" label="Id" min-width="20%" v-if="false" />
-      <el-table-column sortable prop="rizhiName" align="center" label="用户名" min-width="40%" />
+      <el-table-column sortable prop="rizhiName" align="center" label="用户账号" min-width="40%" />
       <el-table-column sortable prop="dengluIp" align="center" label="IP" min-width="40%" />
       <el-table-column sortable prop="date" align="center" label="时间" min-width="40%" :formatter="formatDate" />
       <el-table-column prop="rizhiType" label="操作类型" />
@@ -149,9 +149,8 @@ export default {
       const exportData = this.selectedRows.map((item, index) => {
         return {
           '编号': index + 1,
-          '用户名': item.rizhiName,
+          '用户账号': item.rizhiName,
           'IP': item.dengluIp,
-          // 复用你写好的 formatDate 方法处理时间格式
           '时间': this.formatDate(item, { property: 'date' }),
           '操作类型': item.rizhiType,
           '操作结果': item.rizhiResult,

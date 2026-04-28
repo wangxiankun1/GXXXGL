@@ -10,6 +10,7 @@ import com.dao.*;
 import com.model.*;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Service
 public class RizhiService {
@@ -45,8 +46,19 @@ public class RizhiService {
 
 	public void addLog(HttpServletRequest request, String userName, String type, String remark, String result) {
 		Rizhi rizhi = new Rizhi();
-		rizhi.setRizhiName(userName);
-		rizhi.setDengluIp(request.getRemoteAddr()); // 获取客户端IP
+		HttpSession session = request.getSession();
+
+		// 强制从 Session 中获取管理员账号对象
+		Admin admin = (Admin) session.getAttribute("admin");
+
+		if (admin != null) {
+			// 关键点：这里直接调用 getAdminName() 拿到 "admin"
+			rizhi.setRizhiName(admin.getAdminName());
+		} else {
+			rizhi.setRizhiName(userName); // 兜底
+		}
+
+		rizhi.setDengluIp(request.getRemoteAddr());
 		rizhi.setDate(new Date());
 		rizhi.setRizhiType(type);
 		rizhi.setRizhiRemark(remark);
