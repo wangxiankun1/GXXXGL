@@ -34,7 +34,7 @@ public class LoginController {
 	private JcdaohangService jcdaohangService;
 	@Autowired
 	private JcbiaotiService jcbiaotiService;
-	
+
 	public Jcpeizhi jiazaiPeizhi() {
 		List<Jcpeizhi> jcpeizhis = new ArrayList<Jcpeizhi>();
 		jcpeizhis = jcpeizhiService.queryJcpeizhis(null, 0, 0);
@@ -44,7 +44,7 @@ public class LoginController {
 			return null;
 		}
 	}
-	
+
 	public List<Jcbiaoti> jiazaiBiaoti(int jcbiaotiType) {
 		Jcbiaoti jcbiaoti = new Jcbiaoti();
 		jcbiaoti.setJcbiaotiType(jcbiaotiType);
@@ -53,7 +53,7 @@ public class LoginController {
 		jcbiaotis = jcbiaotiService.queryJcbiaotis(jcbiaoti, 0, 0);
 		return jcbiaotis;
 	}
-	
+
 	public List<List<Jcdaohang>> jiazaiDaohang(List<Jcbiaoti> jcbiaotis) {
 		List<List<Jcdaohang>> jcdaohangslist = new ArrayList<List<Jcdaohang>>();
 		for (int i = 0; i < jcbiaotis.size(); i++) {
@@ -66,21 +66,18 @@ public class LoginController {
 		}
 		return jcdaohangslist;
 	}
+
 	@ResponseBody
 	@RequestMapping("/login")
-	public Response loginUser(@RequestBody Object req,HttpServletRequest request,
-			HttpServletResponse response) throws Exception {
+	public Response loginUser(@RequestBody Object req, HttpServletRequest request,
+							  HttpServletResponse response) throws Exception {
 		Map<String,String> map = (Map<String, String>) req;
 		String userName = map.get("userName");
 		String password = map.get("password");
-		String loginType = map.get("loginType");		
-		String ip = request.getRemoteAddr();
-		Date date = new Date();
-		Rizhi rizhi = new Rizhi();						
-		rizhi.setRizhiName(userName);
-		rizhi.setDate(date);
-		rizhi.setDengluIp(ip);
-		rizhiService.save(rizhi);
+		String loginType = map.get("loginType");
+
+		// 此处已移除原有的 Rizhi 对象创建及 rizhiService.save(rizhi) 逻辑
+
 		if (StringUtil.isEmpty(userName) || StringUtil.isEmpty(password)) {
 			return Response.error(201,"用户名或密码错误");
 		} else {
@@ -88,7 +85,6 @@ public class LoginController {
 			if(jcpeizhi == null){
 				return Response.error(202,"系统还未配置参数，联系管理员");
 			}else{
-				// 获取Session
 				if (loginType.equals("admin")) {
 					Admin admin = new Admin();
 					admin.setAdminName(userName);
@@ -102,9 +98,7 @@ public class LoginController {
 									return Response.error(203,"系统还未配置导航，联系管理员");
 								}else{
 									List<List<Jcdaohang>> jcdaohangslist = jiazaiDaohang(jcbiaotis);
-									Response newResponse = Response.success(admin,"admin",jcpeizhi,jcbiaotis,jcdaohangslist);
-									return newResponse;
-									//return Response.success(admin,"admin",jcpeizhi,jcbiaotis,jcdaohangslist);
+									return Response.success(admin,"admin",jcpeizhi,jcbiaotis,jcdaohangslist);
 								}
 							}else{
 								return Response.error(201,"用户名或密码错误");
@@ -113,7 +107,6 @@ public class LoginController {
 							return Response.error(201,"用户名或密码错误");
 						}
 					} catch (Exception e) {
-						//e.printStackTrace();
 						return Response.error(204,"服务器错误");
 					}
 				} else if (loginType.equals("admin1")){
@@ -129,8 +122,7 @@ public class LoginController {
 									return Response.error(203,"系统还未配置导航，联系管理员");
 								}else{
 									List<List<Jcdaohang>> jcdaohangslist = jiazaiDaohang(jcbiaotis);
-									Response newResponse = Response.success(admin,"admin1",jcpeizhi,jcbiaotis,jcdaohangslist);
-									return newResponse;
+									return Response.success(admin,"admin1",jcpeizhi,jcbiaotis,jcdaohangslist);
 								}
 							}else{
 								return Response.error(201,"用户名或密码错误");
@@ -139,7 +131,6 @@ public class LoginController {
 							return Response.error(201,"用户名或密码错误");
 						}
 					} catch (Exception e) {
-						//e.printStackTrace();
 						return Response.error(204,"服务器错误");
 					}
 				} else if (loginType.equals("yonghu")){
@@ -160,7 +151,6 @@ public class LoginController {
 							return Response.error(201,"用户名或密码错误");
 						}
 					} catch (Exception e) {
-						//e.printStackTrace();
 						return Response.error(204,"服务器错误");
 					}
 				}else if (loginType.equals("user")){
@@ -181,7 +171,6 @@ public class LoginController {
 							return Response.error(201,"用户名或密码错误");
 						}
 					} catch (Exception e) {
-						//e.printStackTrace();
 						return Response.error(204,"服务器错误");
 					}
 				}else{
