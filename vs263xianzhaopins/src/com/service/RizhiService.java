@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.dao.*;
 import com.model.*;
+import com.util.StringUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -46,16 +47,18 @@ public class RizhiService {
 
 	public void addLog(HttpServletRequest request, String userName, String type, String remark, String result) {
 		Rizhi rizhi = new Rizhi();
-		HttpSession session = request.getSession();
 
-		// 强制从 Session 中获取管理员账号对象
-		Admin admin = (Admin) session.getAttribute("admin");
-
-		if (admin != null) {
-			// 关键点：这里直接调用 getAdminName() 拿到 "admin"
-			rizhi.setRizhiName(admin.getAdminName());
+		// 修复点：优先使用传入的有效用户名
+		if (userName != null && !userName.trim().isEmpty()) {
+			rizhi.setRizhiName(userName);
 		} else {
-			rizhi.setRizhiName(userName); // 兜底
+			// 如果没传，再尝试从Session拿（兼容性处理）
+			Admin admin = (Admin) request.getSession().getAttribute("admin");
+			if (admin != null) {
+				rizhi.setRizhiName(admin.getAdminName());
+			} else {
+				rizhi.setRizhiName("系统管理员"); // 最后的兜底
+			}
 		}
 
 		rizhi.setDengluIp(request.getRemoteAddr());

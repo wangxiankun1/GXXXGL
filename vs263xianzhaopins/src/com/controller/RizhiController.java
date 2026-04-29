@@ -81,29 +81,28 @@ public class RizhiController {
 	@ResponseBody
 	@RequestMapping("/deleteRizhi")
 	public Response deleteRizhi(@RequestBody Map<String, Object> map, HttpServletRequest request) {
-		// 1. 获取参数并进行非空安全处理
 		Object idsObj = map.get("delIds");
+		// 新增：从前端请求中获取当前登录用户的姓名/账号
+		String currentUserName = String.valueOf(map.get("currentUserName"));
+
 		if (idsObj == null || idsObj.toString().trim().isEmpty()) {
 			return Response.error(201, "未获取到待删除的ID");
 		}
 
 		String delIds = idsObj.toString();
 		try {
-			// 2. 兼容处理：批量删除传 "1,2,3"，单条删除传 "1"
 			String[] str = delIds.split(",");
 			for (String idStr : str) {
 				if (idStr != null && !idStr.trim().isEmpty()) {
-					// 使用 trim() 防止前端传参带空格导致转换失败
 					rizhiService.deleteRizhi(Integer.parseInt(idStr.trim()));
 				}
 			}
 
-			// 3. 记录审计日志
-			rizhiService.addLog(request, "", "删除", "删除了日志ID: " + delIds, "成功");
+			// 修改点：传入获取到的 currentUserName
+			rizhiService.addLog(request, currentUserName, "删除", "删除了日志ID: " + delIds, "成功");
 			return Response.success();
 		} catch (Exception e) {
-			e.printStackTrace(); // 打印错误堆栈到控制台，方便排查具体转换错误
-			rizhiService.addLog(request, "", "删除", "尝试删除日志失败: " + delIds, "失败");
+			rizhiService.addLog(request, currentUserName, "删除", "尝试删除日志失败: " + delIds, "失败");
 			return Response.error(204, "服务器处理删除请求异常");
 		}
 	}

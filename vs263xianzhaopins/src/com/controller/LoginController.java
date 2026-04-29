@@ -91,6 +91,8 @@ public class LoginController {
 					try {
 						if (adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).size()==1) {
 							admin = (Admin) adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).get(0);
+							request.getSession().setAttribute("admin", admin);
+							request.getSession().setAttribute("role", "admin");
 							if(admin.getAdminType()==null){
 								List<Jcbiaoti> jcbiaotis = jiazaiBiaoti(1);
 								if(jcbiaotis.size()==0){
@@ -139,6 +141,8 @@ public class LoginController {
 					try {
 						if (yonghuService.queryYonghus(yonghu, userName, 0, 0, null, null, null, null).size() == 1) {
 							Yonghu yonghuLogin = (Yonghu)(yonghuService.queryYonghus(yonghu, userName, 0, 0, null, null, null, null)).get(0);
+							request.getSession().setAttribute("yonghu", yonghuLogin);
+							request.getSession().setAttribute("role", "yonghu");
 							List<Jcbiaoti> jcbiaotis = jiazaiBiaoti(3);
 							if(jcbiaotis.size()==0){
 								return Response.error(203,"系统还未配置导航，联系管理员");
@@ -159,6 +163,8 @@ public class LoginController {
 					try {
 						if (userService.queryUsers(user, userName, 0, 0, null, null, null, null).size() == 1) {
 							User userLogin = (User)(userService.queryUsers(user, userName, 0, 0, null, null, null, null)).get(0);
+							request.getSession().setAttribute("user", userLogin);
+							request.getSession().setAttribute("role", "user");
 							List<Jcbiaoti> jcbiaotis = jiazaiBiaoti(2);
 							if(jcbiaotis.size()==0){
 								return Response.error(203,"系统还未配置导航，联系管理员");
