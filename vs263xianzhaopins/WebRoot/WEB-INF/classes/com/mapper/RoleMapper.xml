@@ -65,9 +65,7 @@
 		<if test="role!=null">
 
 			<if test="role.roleName!=null and role.roleName!=''">
-
-				AND roleName LIKE '%${role.roleName}%'
-
+				AND roleName LIKE CONCAT('%', #{role.roleName}, '%')
 			</if>
 
 			<if test="role.roleId!=null">

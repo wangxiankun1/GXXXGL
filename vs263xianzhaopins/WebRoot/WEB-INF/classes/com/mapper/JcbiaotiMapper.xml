@@ -80,9 +80,7 @@
 		<if test="jcbiaoti!=null">
 
 			<if test="jcbiaoti.jcbiaotiName!=null and jcbiaoti.jcbiaotiName!=''">
-
-				AND jcbiaotiName LIKE '%${jcbiaoti.jcbiaotiName}%'
-
+				AND jcbiaotiName LIKE CONCAT('%', #{jcbiaoti.jcbiaotiName}, '%')
 			</if>
 
 			<if test="jcbiaoti.jcbiaotiId!=null">

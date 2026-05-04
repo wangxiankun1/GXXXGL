@@ -86,9 +86,7 @@
 		<if test="jcdaohang!=null">
 
 			<if test="jcdaohang.jcdaohangName!=null and jcdaohang.jcdaohangName!=''">
-
-				AND jcdaohangName LIKE '%${jcdaohang.jcdaohangName}%'
-
+				AND jcdaohangName LIKE CONCAT('%', #{jcdaohang.jcdaohangName}, '%')
 			</if>
 
 			<if test="jcdaohang.jcdaohangId!=null">

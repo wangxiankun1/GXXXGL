@@ -149,9 +149,7 @@
 		<if test="jcpeizhi!=null">
 
 			<if test="jcpeizhi.jcpeizhiName!=null and jcpeizhi.jcpeizhiName!=''">
-
-				AND jcpeizhiName LIKE '%${jcpeizhi.jcpeizhiName}%'
-
+				AND jcpeizhiName LIKE CONCAT('%', #{jcpeizhi.jcpeizhiName}, '%')
 			</if>
 
 			<if test="jcpeizhi.jcpeizhiId!=null">

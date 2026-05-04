@@ -171,10 +171,10 @@
 		</if>
 		<if test="sjpinglun!=null">
 			<if test="sjpinglun.sjpinglunName!=null and sjpinglun.sjpinglunName!=''">
-				 AND sjpinglunName LIKE  '%${sjpinglun.sjpinglunName}%' 
+				 AND sjpinglunName LIKE CONCAT('%', #{sjpinglun.sjpinglunName}, '%') 
 			</if>
 			<if test="sjpinglun.sjpinglunMark!=null and sjpinglun.sjpinglunMark!=''">
-				 AND sjpinglunMark LIKE  '%${sjpinglun.sjpinglunMark}%' 
+				 AND sjpinglunMark LIKE CONCAT('%', #{sjpinglun.sjpinglunMark}, '%') 
 			</if>
 			<if test="sjpinglun.sjpinglunId!=null">
 				 AND sjpinglunId = #{sjpinglun.sjpinglunId} 

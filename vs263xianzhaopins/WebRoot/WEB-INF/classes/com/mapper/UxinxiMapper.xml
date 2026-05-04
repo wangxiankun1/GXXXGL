@@ -131,7 +131,7 @@
 		</if>
 		<if test="uxinxi!=null">
 			<if test="uxinxi.uxinxiName!=null and uxinxi.uxinxiName!=''">
-				 AND uxinxiName LIKE  '%${uxinxi.uxinxiName}%' 
+				 AND uxinxiName LIKE CONCAT('%', #{uxinxi.uxinxiName}, '%') 
 			</if>
 			<if test="uxinxi.uxinxiId!=null">
 				 AND uxinxiId = #{uxinxi.uxinxiId} 

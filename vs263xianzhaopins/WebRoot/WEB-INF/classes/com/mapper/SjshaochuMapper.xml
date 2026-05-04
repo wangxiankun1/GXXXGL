@@ -171,19 +171,19 @@
 		</if>
 		<if test="sjshaochu!=null">
 			<if test="sjshaochu.shujuName!=null and sjshaochu.shujuName!=''">
-				 AND shujuName LIKE  '%${sjshaochu.shujuName}%' 
+				 AND shujuName LIKE CONCAT('%', #{sjshaochu.shujuName}, '%') 
 			</if>
 			<if test="sjshaochu.sjshaochuName!=null and sjshaochu.sjshaochuName!=''">
-				 AND sjshaochuName LIKE  '%${sjshaochu.sjshaochuName}%' 
+				 AND sjshaochuName LIKE CONCAT('%', #{sjshaochu.sjshaochuName}, '%') 
 			</if>
 			<if test="sjshaochu.sjshaochuMark!=null and sjshaochu.sjshaochuMark!=''">
-				 AND sjshaochuMark LIKE  '%${sjshaochu.sjshaochuMark}%' 
+				 AND sjshaochuMark LIKE CONCAT('%', #{sjshaochu.sjshaochuMark}, '%') 
 			</if>
 			<if test="sjshaochu.sjshaochuMark1!=null and sjshaochu.sjshaochuMark1!=''">
-				 AND sjshaochuMark1 LIKE  '%${sjshaochu.sjshaochuMark1}%' 
+				 AND sjshaochuMark1 LIKE CONCAT('%', #{sjshaochu.sjshaochuMark1}, '%') 
 			</if>
 			<if test="sjshaochu.sjshaochuMark2!=null and sjshaochu.sjshaochuMark2!=''">
-				 AND sjshaochuMark2 LIKE  '%${sjshaochu.sjshaochuMark2}%' 
+				 AND sjshaochuMark2 LIKE CONCAT('%', #{sjshaochu.sjshaochuMark2}, '%') 
 			</if>
 			<if test="sjshaochu.sjshaochuId!=null">
 				 AND sjshaochuId = #{sjshaochu.sjshaochuId} 

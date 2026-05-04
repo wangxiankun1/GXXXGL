@@ -122,7 +122,7 @@
 		</if>
 		<if test="ggpinglun!=null">
 			<if test="ggpinglun.ggpinglunName!=null and ggpinglun.ggpinglunName!=''">
-				 AND ggpinglunName LIKE  '%${ggpinglun.ggpinglunName}%' 
+				 AND ggpinglunName LIKE CONCAT('%', #{ggpinglun.ggpinglunName}, '%') 
 			</if>
 			<if test="ggpinglun.ggpinglunId!=null">
 				 AND ggpinglunId = #{ggpinglun.ggpinglunId} 

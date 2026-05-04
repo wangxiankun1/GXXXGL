@@ -157,13 +157,13 @@
 		</if>
 		<if test="user!=null">
 			<if test="user.userPhone!=null and user.userPhone!=''">
-				 AND userPhone LIKE  '%${user.userPhone}%' 
+				 AND userPhone LIKE CONCAT('%', #{user.userPhone}, '%') 
 			</if>
 			<if test="user.userXingming!=null and user.userXingming!=''">
-				 AND userXingming LIKE  '%${user.userXingming}%' 
+				 AND userXingming LIKE CONCAT('%', #{user.userXingming}, '%') 
 			</if>
 			<if test="user.userName!=null and user.userName!=''">
-				 AND userName LIKE  '%${user.userName}%' 
+				 AND userName LIKE CONCAT('%', #{user.userName}, '%') 
 			</if>
 			<if test="user.userPassword!=null and user.userPassword!=''">
 				 AND userPassword = #{user.userPassword} 
