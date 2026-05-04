@@ -148,7 +148,7 @@
 		</if>
 		<if test="yxinxi!=null">
 			<if test="yxinxi.yxinxiName!=null and yxinxi.yxinxiName!=''">
-				 AND yxinxiName LIKE CONCAT('%', #{yxinxi.yxinxiName}, '%') 
+				 AND yxinxiName LIKE  '%${yxinxi.yxinxiName}%' 
 			</if>
 			<if test="yxinxi.yxinxiId!=null">
 				 AND yxinxiId = #{yxinxi.yxinxiId} 

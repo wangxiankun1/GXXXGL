@@ -163,19 +163,19 @@
 		</if>
 		<if test="shuju!=null">
 			<if test="shuju.shujuName!=null and shuju.shujuName!=''">
-				 AND shujuName LIKE CONCAT('%', #{shuju.shujuName}, '%') 
+				 AND shujuName LIKE  '%${shuju.shujuName}%' 
 			</if>
 			<if test="shuju.shujuMark!=null and shuju.shujuMark!=''">
-				 AND shujuMark LIKE CONCAT('%', #{shuju.shujuMark}, '%') 
+				 AND shujuMark LIKE  '%${shuju.shujuMark}%' 
 			</if>
 			<if test="shuju.shujuMark1!=null and shuju.shujuMark1!=''">
-				 AND shujuMark1 LIKE CONCAT('%', #{shuju.shujuMark1}, '%') 
+				 AND shujuMark1 LIKE  '%${shuju.shujuMark1}%' 
 			</if>
 			<if test="shuju.shujuMark2!=null and shuju.shujuMark2!=''">
-				 AND shujuMark2 LIKE CONCAT('%', #{shuju.shujuMark2}, '%') 
+				 AND shujuMark2 LIKE  '%${shuju.shujuMark2}%' 
 			</if>
 			<if test="shuju.shujuMark3!=null and shuju.shujuMark3!=''">
-				 AND shujuMark3 LIKE CONCAT('%', #{shuju.shujuMark3}, '%') 
+				 AND shujuMark3 LIKE  '%${shuju.shujuMark3}%' 
 			</if>
 			<if test="shuju.shujuDouble3!=null">
 				 AND shujuDouble &gt;= #{shuju.shujuDouble3} 

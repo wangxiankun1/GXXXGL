@@ -61,7 +61,9 @@
 		<if test="ggtype!=null">
 
 			<if test="ggtype.ggtypeName!=null and ggtype.ggtypeName!=''">
-				AND ggtypeName LIKE CONCAT('%', #{ggtype.ggtypeName}, '%')
+
+				AND ggtypeName LIKE '%${ggtype.ggtypeName}%'
+
 			</if>
 
 			<if test="ggtype.ggtypeId!=null">

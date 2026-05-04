@@ -112,13 +112,26 @@ public class ShujuController {
 			if(tuijianShujus.size()>0){
 				return Response.success(tuijianShujus);
 			}
-			//协同过滤为空，随机推荐
 			else{
+				User currentUser = userService.getUser(Integer.parseInt(userId));
+				String userMajor = currentUser.getUserMark3();
+				if(StringUtil.isNotEmpty(userMajor)){
+					List<Shuju> majorMatchShujus = new ArrayList<Shuju>();
+					for(Shuju s : shujus){
+						String sjleixingName = s.getSjleixingName();
+						if(StringUtil.isNotEmpty(sjleixingName) && sjleixingName.contains(userMajor)){
+							majorMatchShujus.add(s);
+						}
+					}
+					if(majorMatchShujus.size()>0){
+						tuijianShujus = ListSuiji.createRandomList(majorMatchShujus, Math.min(6, majorMatchShujus.size()));
+						return Response.success(tuijianShujus);
+					}
+				}
 				tuijianShujus = ListSuiji.createRandomList(shujus, 6);
 				return Response.success(tuijianShujus);
 			}
 		}
-		//没有登陆随机推荐
 		else{
 			List<Shuju> shujus = new ArrayList<Shuju>();
 			shujus = shujuService.queryShujus(null, 0, 0, null, null, null, null);

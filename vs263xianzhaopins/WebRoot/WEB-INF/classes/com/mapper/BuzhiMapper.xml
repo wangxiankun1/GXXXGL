@@ -94,7 +94,9 @@
 		<if test="buzhi!=null">
 
 			<if test="buzhi.buzhiName!=null and buzhi.buzhiName!=''">
-				AND buzhiName LIKE CONCAT('%', #{buzhi.buzhiName}, '%')
+
+				AND buzhiName LIKE '%${buzhi.buzhiName}%'
+
 			</if>
 
 			<if test="buzhi.buyuanId!=null">

@@ -66,7 +66,9 @@
 		<if test="rizhi!=null">
 
 			<if test="rizhi.rizhiName!=null and rizhi.rizhiName!=''">
-				AND rizhiName LIKE CONCAT('%', #{rizhi.rizhiName}, '%')
+
+				AND rizhiName LIKE '%${rizhi.rizhiName}%'
+
 			</if>
 
 			<if test="rizhi.rizhiId!=null">

@@ -87,7 +87,9 @@
 		<if test="bumen!=null">
 
 			<if test="bumen.bumenName!=null and bumen.bumenName!=''">
-				AND bumenName LIKE CONCAT('%', #{bumen.bumenName}, '%')
+
+				AND bumenName LIKE '%${bumen.bumenName}%'
+
 			</if>
 
 			<if test="bumen.buyuanId!=null">

@@ -81,7 +81,9 @@
 		<if test="buyuan!=null">
 
 			<if test="buyuan.buyuanName!=null and buyuan.buyuanName!=''">
-				AND buyuanName LIKE CONCAT('%', #{buyuan.buyuanName}, '%')
+
+				AND buyuanName LIKE '%${buyuan.buyuanName}%'
+
 			</if>
 
 			<if test="buyuan.buyuanId!=null">

@@ -54,7 +54,7 @@
 		WHERE 1=1
 		<if test="uxtype!=null">
 			<if test="uxtype.uxtypeName!=null and uxtype.uxtypeName!=''">
-				AND uxtypeName LIKE CONCAT('%', #{uxtype.uxtypeName}, '%')
+				AND uxtypeName LIKE '%${uxtype.uxtypeName}%'
 			</if>
 			<if test="uxtype.uxtypeId!=null">
 				AND uxtypeId = #{uxtype.uxtypeId}

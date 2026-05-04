@@ -132,16 +132,16 @@
 		</if>
 		<if test="admin!=null">
 			<if test="admin.adminName!=null and admin.adminName!=''">
-				 AND adminName LIKE CONCAT('%', #{admin.adminName}, '%') 
+				 AND adminName LIKE  '%${admin.adminName}%' 
 			</if>
 			<if test="admin.adminXingming!=null and admin.adminXingming!=''">
-				 AND adminXingming LIKE CONCAT('%', #{admin.adminXingming}, '%') 
+				 AND adminXingming LIKE  '%${admin.adminXingming}%' 
 			</if>
 			<if test="admin.adminPassword!=null and admin.adminPassword!=''">
 				 AND adminPassword = #{admin.adminPassword} 
 			</if>
 			<if test="admin.adminPhone!=null and admin.adminPhone!=''">
-				 AND adminPhone LIKE CONCAT('%', #{admin.adminPhone}, '%') 
+				 AND adminPhone LIKE  '%${admin.adminPhone}%' 
 			</if>
 			<if test="admin.adminId!=null">
 				 AND adminId = #{admin.adminId} 

@@ -54,7 +54,7 @@
 		WHERE 1=1
 		<if test="yxtype!=null">
 			<if test="yxtype.yxtypeName!=null and yxtype.yxtypeName!=''">
-				AND yxtypeName LIKE CONCAT('%', #{yxtype.yxtypeName}, '%')
+				AND yxtypeName LIKE '%${yxtype.yxtypeName}%'
 			</if>
 			<if test="yxtype.yxtypeId!=null">
 				AND yxtypeId = #{yxtype.yxtypeId}

@@ -159,13 +159,13 @@
 		</if>
 		<if test="yonghu!=null">
 			<if test="yonghu.yonghuPhone!=null and yonghu.yonghuPhone!=''">
-				 AND yonghuPhone LIKE CONCAT('%', #{yonghu.yonghuPhone}, '%') 
+				 AND yonghuPhone LIKE  '%${yonghu.yonghuPhone}%' 
 			</if>
 			<if test="yonghu.yonghuName!=null and yonghu.yonghuName!=''">
-				 AND yonghuName LIKE CONCAT('%', #{yonghu.yonghuName}, '%') 
+				 AND yonghuName LIKE  '%${yonghu.yonghuName}%' 
 			</if>
 			<if test="yonghu.yonghuXingming!=null and yonghu.yonghuXingming!=''">
-				 AND yonghuXingming LIKE CONCAT('%', #{yonghu.yonghuXingming}, '%') 
+				 AND yonghuXingming LIKE  '%${yonghu.yonghuXingming}%' 
 			</if>
 			<if test="yonghu.yonghuPassword!=null and yonghu.yonghuPassword!=''">
 				 AND yonghuPassword = #{yonghu.yonghuPassword} 

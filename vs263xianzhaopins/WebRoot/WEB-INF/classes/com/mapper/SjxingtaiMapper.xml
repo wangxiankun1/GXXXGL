@@ -82,10 +82,10 @@
 		WHERE 1=1
 		<if test="sjxingtai!=null">
 			<if test="sjxingtai.sjxingtaiName!=null and sjxingtai.sjxingtaiName!=''">
-				AND sjxingtaiName LIKE CONCAT('%', #{sjxingtai.sjxingtaiName}, '%')
+				AND sjxingtaiName LIKE '%${sjxingtai.sjxingtaiName}%'
 			</if>
 			<if test="sjxingtai.sjxingtaiPhone!=null and sjxingtai.sjxingtaiPhone!=''">
-				AND sjxingtaiPhone LIKE CONCAT('%', #{sjxingtai.sjxingtaiPhone}, '%')
+				AND sjxingtaiPhone LIKE '%${sjxingtai.sjxingtaiPhone}%'
 			</if>
 			<if test="sjxingtai.sjxingtaiId!=null">
 				AND sjxingtaiId = #{sjxingtai.sjxingtaiId}

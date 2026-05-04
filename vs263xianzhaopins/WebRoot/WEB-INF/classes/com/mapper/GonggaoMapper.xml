@@ -73,7 +73,7 @@
 		</if>
 		<if test="gonggao!=null">
 			<if test="gonggao.gonggaoName!=null and gonggao.gonggaoName!=''">
-				 AND gonggaoName LIKE CONCAT('%', #{gonggao.gonggaoName}, '%') 
+				 AND gonggaoName LIKE  '%${gonggao.gonggaoName}%' 
 			</if>
 			<if test="gonggao.gonggaoId!=null">
 				 AND gonggaoId = #{gonggao.gonggaoId} 

@@ -131,7 +131,7 @@
 		</if>
 		<if test="uyijian!=null">
 			<if test="uyijian.uyijianName!=null and uyijian.uyijianName!=''">
-				 AND uyijianName LIKE CONCAT('%', #{uyijian.uyijianName}, '%') 
+				 AND uyijianName LIKE  '%${uyijian.uyijianName}%' 
 			</if>
 			<if test="uyijian.uyijianId!=null">
 				 AND uyijianId = #{uyijian.uyijianId} 
