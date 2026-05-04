@@ -420,6 +420,106 @@ public class UxinxiController {
 			return Response.error(204,"服务器错误");
 		}
 	}
+	
+	//专业就业统计方法
+	@ResponseBody
+	@RequestMapping("/zhuanyeUxinxiTongji")
+	public Response zhuanyeUxinxiTongji(@RequestBody(required=false) Object req,HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		Map<String,String> map = new HashMap<String, String>();
+		if(req != null) {
+			Map<String,String> newMap = (Map<String, String>) req;
+			for(Map.Entry entry : newMap.entrySet()) {
+		        String key = String.valueOf(entry.getKey());
+		        String value = "";
+		        if(entry.getValue()!=null){
+		        	value = String.valueOf(entry.getValue());
+		        }
+		        map.put(key, value);
+		    }
+		}
+		//统计条件参数
+		String sdate=map.get("sdate");
+		String edate=map.get("edate");
+		String uxinxiName = map.get("uxinxiName");
+		
+		Uxinxi uxinxi = new Uxinxi();
+		if (StringUtil.isNotEmpty(uxinxiName)) {
+			uxinxi.setUxinxiName(uxinxiName);
+		}
+		uxinxi.setUxinxiType(1);
+		
+		try {
+			//统计图横（X）轴名称
+			List<String> nameList = new ArrayList<String>();
+			//统计图竖（Y）轴数值
+	        List<Double> zongshuList = new ArrayList<Double>();
+	        String tongjiUxinxi = "[";
+	        
+			//1. 先查询所有学生，获取所有专业
+			User allUserQuery = new User();
+			List<User> allUsers = userService.queryUsers(allUserQuery, null, 0, 0, null, null, null, null);
+			
+			//使用Map统计每个专业的就业人数，初始化为0
+			Map<String, Double> zhuanyeTongji = new HashMap<String, Double>();
+			
+			//先把所有专业加入，初始化为0
+			for(User u : allUsers){
+				if(StringUtil.isNotEmpty(u.getUserMark2())){
+					String zhuanye = u.getUserMark2();
+					if(!zhuanyeTongji.containsKey(zhuanye)){
+						zhuanyeTongji.put(zhuanye, 0.0);
+					}
+				}
+			}
+			System.out.println("所有专业列表：" + zhuanyeTongji.keySet());
+			
+			//2. 再查询所有已就业的学生，统计就业人数
+			List<Uxinxi> uxinxis = uxinxiService.queryUxinxis(uxinxi, 0,0,sdate,edate);
+			System.out.println("查询到审核通过的就业信息数量：" + uxinxis.size());
+			
+			for(Uxinxi u : uxinxis){
+				if(u.getUserId() != null){
+					//根据userId查询学生信息
+					User user = userService.getUser(u.getUserId());
+					if(user != null && StringUtil.isNotEmpty(user.getUserMark2())){
+						String zhuanye = user.getUserMark2();
+						if(zhuanyeTongji.containsKey(zhuanye)){
+							zhuanyeTongji.put(zhuanye, zhuanyeTongji.get(zhuanye) + 1);
+						}
+						System.out.println("找到学生：" + user.getUserName() + "，专业：" + zhuanye);
+					}
+				}
+			}
+			System.out.println("专业统计结果：" + zhuanyeTongji);
+			
+			//将Map转换为nameList和zongshuList
+			int index = 0;
+			for(Map.Entry<String, Double> entry : zhuanyeTongji.entrySet()){
+				nameList.add(entry.getKey());
+				zongshuList.add(entry.getValue());
+				
+				tongjiUxinxi = tongjiUxinxi + "{\"value\":" + entry.getValue() + ",\"name\": '" + entry.getKey() + "' }";
+				if(index < (zhuanyeTongji.size()-1)){
+					tongjiUxinxi = tongjiUxinxi + ",";
+				}
+				index++;
+			}
+			
+			tongjiUxinxi = tongjiUxinxi + "]";
+			//转为map型
+			Map<String,Object> tongjiMap=new HashMap<String,Object>();
+			tongjiMap.put("value",zongshuList);
+			tongjiMap.put("name",nameList);
+			//转为json型
+			JSONArray jsonArray = JSONArray.fromObject(tongjiUxinxi);
+			System.out.println("返回数据：" + tongjiMap);
+			return Response.tongjiSuccess(tongjiMap,jsonArray);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return Response.error(204,"服务器错误");
+		}
+	}
 
 	//导入方法
 	@ResponseBody

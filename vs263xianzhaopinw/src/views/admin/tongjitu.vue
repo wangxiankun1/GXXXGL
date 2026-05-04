@@ -59,14 +59,25 @@
     </el-row>
 
     <el-row :gutter="20" class="dashboard-row">
-      <el-col :span="24">
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
         <el-card shadow="hover" class="chart-card">
           <template #header>
             <div class="card-header">
               <span>讨论交流统计</span>
             </div>
           </template>
-          <div id="sjduochuChart" class="chart-box chart-box-large"></div>
+          <div id="sjduochuChart" class="chart-box"></div>
+        </el-card>
+      </el-col>
+
+      <el-col :xs="24" :sm="24" :md="12" :lg="12" :xl="12">
+        <el-card shadow="hover" class="chart-card">
+          <template #header>
+            <div class="card-header">
+              <span>专业就业统计</span>
+            </div>
+          </template>
+          <div id="zhuanyeUxinxiChart" class="chart-box"></div>
         </el-card>
       </el-col>
     </el-row>
@@ -87,6 +98,7 @@ export default {
       shujuTongjiData: { name: [], value: [] },
       dianzanTongjiData: { name: [], value: [] },
       uxinxiTongjiData: { name: [], value: [] },
+      zhuanyeUxinxiTongjiData: { name: [], value: [] },
       sjduochuTongjiData: { name: [], value: [] },
     };
   },
@@ -115,6 +127,7 @@ export default {
       this.getShujuTongji();
       this.getDianzanTongji();
       this.getUxinxiTongji();
+      this.getZhuanyeUxinxiTongji();
       this.getSjduochuTongji();
     },
 
@@ -123,6 +136,7 @@ export default {
       this.initChart("shujuChart");
       this.initChart("dianzanChart");
       this.initChart("uxinxiChart");
+      this.initChart("zhuanyeUxinxiChart");
       this.initChart("sjduochuChart");
     },
 
@@ -231,6 +245,16 @@ export default {
       request.post(url, {}).then((res) => {
         this.uxinxiTongjiData = this.normalizeTongjiData(res);
         this.renderUxinxiChart();
+      });
+    },
+
+    getZhuanyeUxinxiTongji() {
+      let url = base + "/zhuanyeUxinxiTongji";
+      request.post(url, {}).then((res) => {
+        console.log("专业就业统计接口返回数据：", res);
+        this.zhuanyeUxinxiTongjiData = this.normalizeTongjiData(res);
+        console.log("处理后的专业就业统计数据：", this.zhuanyeUxinxiTongjiData);
+        this.renderZhuanyeUxinxiChart();
       });
     },
 
@@ -463,6 +487,74 @@ export default {
       };
 
       chart.setOption(option, true);
+    },
+
+    renderZhuanyeUxinxiChart() {
+      let chart = this.chartMap["zhuanyeUxinxiChart"];
+      if (!chart) {
+        console.log("图表实例不存在：zhuanyeUxinxiChart");
+        return;
+      }
+
+      console.log("准备渲染专业就业统计图表，数据：", this.zhuanyeUxinxiTongjiData);
+
+      const option = {
+        title: {
+          text: "专业就业统计",
+          left: "center",
+          top: 10,
+          textStyle: {
+            fontSize: 16,
+            fontWeight: "bold",
+          },
+        },
+        tooltip: {
+          trigger: "axis",
+        },
+        grid: {
+          left: "6%",
+          right: "4%",
+          bottom: "8%",
+          top: "18%",
+          containLabel: true,
+        },
+        xAxis: {
+          type: "category",
+          name: "专业",
+          data: this.zhuanyeUxinxiTongjiData.name || [],
+          axisLabel: {
+            interval: 0,
+            rotate: (this.zhuanyeUxinxiTongjiData.name || []).length > 6 ? 25 : 0,
+          },
+        },
+        yAxis: {
+          type: "value",
+          name: "就业人数",
+          min: 0,
+        },
+        series: [
+          {
+            name: "就业人数",
+            type: "bar",
+            barWidth: "45%",
+            data: this.zhuanyeUxinxiTongjiData.value || [],
+            showBackground: true,
+            backgroundStyle: {
+              color: "rgba(180, 180, 180, 0.15)",
+            },
+            itemStyle: {
+              borderRadius: [8, 8, 0, 0],
+            },
+            label: {
+              show: true,
+              position: "top",
+            },
+          },
+        ],
+      };
+
+      chart.setOption(option, true);
+      console.log("专业就业统计图表渲染完成");
     },
 
     renderSjduochuChart() {
