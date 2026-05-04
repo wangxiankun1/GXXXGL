@@ -184,7 +184,7 @@ public class AdminController {
 				admin.setAdminName(adminName);
 			}
 			if (StringUtil.isNotEmpty(adminPassword)) {
-				admin.setAdminPassword(adminPassword);
+				admin.setAdminPassword(MD5Util.getMD5(adminPassword));
 			}
 			if (StringUtil.isNotEmpty(adminAge)) {
 				admin.setAdminAge(Integer.parseInt(adminAge));

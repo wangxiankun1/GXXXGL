@@ -222,7 +222,7 @@ public class UserController {
 				user.setUserName(userName);
 			}
 			if (StringUtil.isNotEmpty(userPassword)) {
-				user.setUserPassword(userPassword);
+				user.setUserPassword(MD5Util.getMD5(userPassword));
 			}
 			if (StringUtil.isNotEmpty(userAge)) {
 				user.setUserAge(Integer.parseInt(userAge));
@@ -369,10 +369,10 @@ public class UserController {
 		User user = new User();
 		try {
 			user = userService.getUser(Integer.parseInt(userId));
-			if (!user.getUserPassword().equals(userPassword)) {
+			if (!user.getUserPassword().equals(MD5Util.getMD5(userPassword))) {
 				return Response.error(202,"原密码错误，请重新输入");
 			}else{
-				user.setUserPassword(userPassword1);
+				user.setUserPassword(MD5Util.getMD5(userPassword1));
 				userService.modifyUser(user);
 				return Response.success();
 			}
@@ -474,7 +474,7 @@ public class UserController {
 				user.setUserName(userName);
 			}
 			if (StringUtil.isNotEmpty(userPassword)) {
-				user.setUserPassword(userPassword);
+				user.setUserPassword(MD5Util.getMD5(userPassword));
 			}
 			if (StringUtil.isNotEmpty(userAge)) {
 				user.setUserAge(Integer.parseInt(userAge));
@@ -815,7 +815,7 @@ public class UserController {
 	                user.setUserName(userName);
 	            }
 	            if (StringUtil.isNotEmpty(userPassword)) {
-	                user.setUserPassword(userPassword);
+	                user.setUserPassword(MD5Util.getMD5(userPassword));
 	            }
 	            if (StringUtil.isNotEmpty(userAge)) {
 	                user.setUserAge(Integer.parseInt(userAge));

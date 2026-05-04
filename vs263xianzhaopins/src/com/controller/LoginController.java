@@ -87,7 +87,7 @@ public class LoginController {
 				if (loginType.equals("admin")) {
 					Admin admin = new Admin();
 					admin.setAdminName(userName);
-					admin.setAdminPassword(password);
+					admin.setAdminPassword(MD5Util.getMD5(password));
 					try {
 						if (adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).size()==1) {
 							admin = (Admin) adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).get(0);
@@ -113,7 +113,7 @@ public class LoginController {
 				} else if (loginType.equals("admin1")){
 					Admin admin = new Admin();
 					admin.setAdminName(userName);
-					admin.setAdminPassword(password);
+					admin.setAdminPassword(MD5Util.getMD5(password));
 					try {
 						if (adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).size()==1) {
 							admin = (Admin) adminService.queryAdmins(admin, userName, 0, 0, null, null, null, null).get(0);
@@ -137,7 +137,7 @@ public class LoginController {
 				} else if (loginType.equals("yonghu")){
 					Yonghu yonghu = new Yonghu();
 					yonghu.setYonghuName(userName);
-					yonghu.setYonghuPassword(password);
+					yonghu.setYonghuPassword(MD5Util.getMD5(password));
 					try {
 						if (yonghuService.queryYonghus(yonghu, userName, 0, 0, null, null, null, null).size() == 1) {
 							Yonghu yonghuLogin = (Yonghu)(yonghuService.queryYonghus(yonghu, userName, 0, 0, null, null, null, null)).get(0);
@@ -159,7 +159,7 @@ public class LoginController {
 				}else if (loginType.equals("user")){
 					User user = new User();
 					user.setUserName(userName);
-					user.setUserPassword(password);
+					user.setUserPassword(MD5Util.getMD5(password));
 					try {
 						if (userService.queryUsers(user, userName, 0, 0, null, null, null, null).size() == 1) {
 							User userLogin = (User)(userService.queryUsers(user, userName, 0, 0, null, null, null, null)).get(0);

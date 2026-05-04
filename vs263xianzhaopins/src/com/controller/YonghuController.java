@@ -241,7 +241,7 @@ public class YonghuController {
 				yonghu.setYonghuName(yonghuName);
 			}
 			if (StringUtil.isNotEmpty(yonghuPassword)) {
-				yonghu.setYonghuPassword(yonghuPassword);
+				yonghu.setYonghuPassword(MD5Util.getMD5(yonghuPassword));
 			}
 			if (StringUtil.isNotEmpty(yonghuAge)) {
 				yonghu.setYonghuAge(Integer.parseInt(yonghuAge));
@@ -390,10 +390,10 @@ public class YonghuController {
 		Yonghu yonghu = new Yonghu();
 		try {
 			yonghu = yonghuService.getYonghu(Integer.parseInt(yonghuId));
-			if (!yonghu.getYonghuPassword().equals(yonghuPassword)) {
+			if (!yonghu.getYonghuPassword().equals(MD5Util.getMD5(yonghuPassword))) {
 				return Response.error(202,"原密码错误，请重新输入");
 			}else{
-				yonghu.setYonghuPassword(yonghuPassword1);
+				yonghu.setYonghuPassword(MD5Util.getMD5(yonghuPassword1));
 				yonghuService.modifyYonghu(yonghu);
 				return Response.success();
 			}
@@ -499,7 +499,7 @@ public class YonghuController {
 				yonghu.setYonghuName(yonghuName);
 			}
 			if (StringUtil.isNotEmpty(yonghuPassword)) {
-				yonghu.setYonghuPassword(yonghuPassword);
+				yonghu.setYonghuPassword(MD5Util.getMD5(yonghuPassword));
 			}
 			if (StringUtil.isNotEmpty(yonghuAge)) {
 				yonghu.setYonghuAge(Integer.parseInt(yonghuAge));
