@@ -4,7 +4,7 @@
 
       <!-- 右侧：商品列表 -->
       <section class="product-list">
-        <h2>{{ webJcpeizhi.shujuBieming }}信息</h2>
+        <h2>{{ webJcpeizhi.shujuBieming }}推荐</h2>
         <div class="product-grid">
           <div
             class="product-card"

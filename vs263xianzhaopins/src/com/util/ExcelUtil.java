@@ -109,7 +109,7 @@ public class ExcelUtil {
 	}
 	
 	public static List<List<String>> jiexiExcel(InputStream excelFile) throws Exception{
-		Workbook wb = new HSSFWorkbook(excelFile);
+		Workbook wb = WorkbookFactory.create(excelFile);
 		List<List<String>> list = getExcelRows(getSheet(wb, 0), -1, -1);
 		return list;
 	}

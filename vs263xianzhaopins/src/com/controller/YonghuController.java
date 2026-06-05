@@ -813,6 +813,9 @@ public class YonghuController {
 			list = ExcelUtil.jiexiExcel(excelFile);
 			for (int i = 1; i < list.size(); i++) {
 				List<String> row = list.get(i);
+				if (row == null || row.size() < 2 || StringUtil.isEmpty(row.get(1)) || "NULL".equals(row.get(1))) {
+					continue; // 忽略这个空行，继续下一行
+				}
 				String yonghuName = row.get(1);
 				String yonghuDouble = row.get(2);
 				String yonghuDouble1 = row.get(3);
@@ -829,8 +832,12 @@ public class YonghuController {
 				if (StringUtil.isNotEmpty(yonghuZong)) {
 					yonghu.setYonghuZong(Integer.parseInt(yonghuZong));
 				}
-				if (StringUtil.isNotEmpty(yonghuDouble)) {
-					yonghu.setYonghuDouble(Double.parseDouble(yonghuDouble));
+				if (StringUtil.isNotEmpty(yonghuDouble) && !"NULL".equals(yonghuDouble)) {
+					try {
+						yonghu.setYonghuDouble(Double.parseDouble(yonghuDouble));
+					} catch (Exception e) {
+						yonghu.setYonghuDouble(0.0);
+					}
 				}
 				if (StringUtil.isNotEmpty(yonghuDouble1)) {
 					yonghu.setYonghuDouble1(Double.parseDouble(yonghuDouble1));

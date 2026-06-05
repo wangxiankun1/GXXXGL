@@ -800,6 +800,9 @@ public class UserController {
 	        List<List<String>> list = ExcelUtil.jiexiExcel(excelFile);
 	        for (int i = 1; i < list.size(); i++) {
 	            List<String> row = list.get(i);
+				if (row == null || row.size() < 2 || StringUtil.isEmpty(row.get(1)) || "NULL".equals(row.get(1))) {
+					continue; // 忽略这个空行，继续下一行
+				}
 	            String userName = row.get(1);
 	            String userPassword = row.get(2);
 	            String userXingming = row.get(3);
@@ -817,9 +820,13 @@ public class UserController {
 	            if (StringUtil.isNotEmpty(userPassword)) {
 	                user.setUserPassword(MD5Util.getMD5(userPassword));
 	            }
-	            if (StringUtil.isNotEmpty(userAge)) {
-	                user.setUserAge(Integer.parseInt(userAge));
-	            }
+				if (StringUtil.isNotEmpty(userAge) && !"NULL".equals(userAge)) {
+					try {
+						user.setUserAge(Integer.parseInt(userAge));
+					} catch (Exception e) {
+						user.setUserAge(0); // 如果 Excel 里填的不是纯数字，默认设为 0，防止崩溃
+					}
+				}
 	            if (StringUtil.isNotEmpty(userXingming)) {
 	                user.setUserXingming(userXingming);
 	            }

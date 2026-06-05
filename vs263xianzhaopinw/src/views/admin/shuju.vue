@@ -44,13 +44,13 @@
       <el-table-column prop="shujuZong" align="center" label="人数" width="50" ></el-table-column>
       <el-table-column sortable prop="shujuDouble" align="center" label="工资" width="70" ></el-table-column>
       <!--显示图片开始-->
-      <el-table-column prop="shujuImg" align="center" label="图片" width="130">
-        <template #default="scope">
-          <div style="width: 110px;height: 110px;display: flex;align-items: center;">
-            <el-image fit="fill" :src="scope.row.shujuImg" :preview-src-list="[scope.row.shujuImg]"></el-image>
-          </div>
-        </template>
-      </el-table-column>
+<!--      <el-table-column prop="shujuImg" align="center" label="图片" width="130">-->
+<!--        <template #default="scope">-->
+<!--          <div style="width: 110px;height: 110px;display: flex;align-items: center;">-->
+<!--            <el-image fit="fill" :src="scope.row.shujuImg" :preview-src-list="[scope.row.shujuImg]"></el-image>-->
+<!--          </div>-->
+<!--        </template>-->
+<!--      </el-table-column>-->
       <!--显示图片结束-->
       <el-table-column sortable prop="shujuDate" align="center" label="时间" width="130" :formatter="formatDate" v-if="false"></el-table-column>
       <!--操作按钮开始-->
