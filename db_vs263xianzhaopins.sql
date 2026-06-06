@@ -286,6 +286,7 @@ INSERT INTO `t_jcdaohang` VALUES (32, '评论信息', 'sjpinglun', NULL, NULL, N
 INSERT INTO `t_jcdaohang` VALUES (33, '就业类型', 'uxtype', NULL, NULL, NULL, 1, 1, 0, NULL, 15, NULL);
 INSERT INTO `t_jcdaohang` VALUES (34, '就业信息', 'uxinxi', NULL, NULL, NULL, 2, 1, 0, NULL, 15, NULL);
 INSERT INTO `t_jcdaohang` VALUES (35, '就业信息', 'uxinxi', NULL, NULL, NULL, 1, 2, 0, NULL, 16, NULL);
+INSERT INTO `t_jcdaohang` VALUES (36, '数据分析', 'fenxitu', NULL, NULL, NULL, 3, 1, 0, NULL, 8, NULL);
 
 -- ----------------------------
 -- Table structure for t_jcpeizhi
